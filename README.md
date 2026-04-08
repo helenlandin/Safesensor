@@ -1,6 +1,7 @@
 # SafeSensor
 
 En webbapplikation byggd med React, Tailwind CSS och shadcn/ui.
+<img width="1867" height="1914" alt="image" src="https://github.com/user-attachments/assets/600c350e-efda-4abc-84cb-b86041ace232" />
 
 ---
 
