@@ -10,16 +10,24 @@ const sliderColors = [
   "from-[#7DBA98] via-[#B7D9C6] to-[#FFD9B3]", // green → soft warm
 ]
 
-function getFeelingText(value: number) {
-  if (value <= 3) return "Du är lugn"
-  if (value <= 6) return "Du är påverkad men i kontroll"
-  return "Du är överväldigad"
-}
 
 export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
   const [value, setValue] = useState(4)
   const [note, setNote] = useState("")
-
+  const scaleContent: Record<number, { emoji: string; text: string }> = {
+    0: { emoji: "🟢", text: "Bra att du checkar in, även när det känns lugnt." },
+    1: { emoji: "🙂", text: "Bra att du checkar in, även när det känns lugnt." },
+    2: { emoji: "😊", text: "Bra att du checkar in, även när det känns lugnt." },
+    3: { emoji: "😐", text: "Bra att du checkar in, även när det känns lugnt." },
+    4: { emoji: "🟡", text: "Lyssna in — var i kroppen märker du det mest?" },
+    5: { emoji: "😟", text: "Lyssna in — var i kroppen märker du det mest?" },
+    6: { emoji: "😰", text: "Lyssna in — var i kroppen märker du det mest?" },
+    7: { emoji: "🔵", text: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande." },
+    8: { emoji: "😧", text: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande." },
+    9: { emoji: "😫", text: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande." },
+    10: { emoji: "🔴", text: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande." },
+  };
+  const currentContent = scaleContent[Math.round(value)] || scaleContent[0];
   return (
     <div className="min-h-svh bg-gradient-to-b from-[#F7FBF8] to-[#F5FAF7] flex flex-col justify-between items-center px-4 pt-4 pb-6">
 
@@ -40,10 +48,10 @@ export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
 
         {/* Emoji */}
         <div className="mb-4 mt-2 flex-shrink-0">
-          <span className="text-6xl" aria-label="mild stress" role="img">
-            😯
-          </span>
-        </div>
+  <span className="text-6xl" role="img">
+  {"HÄR"}
+  </span>
+</div>
 
         {/* Title */}
         <h1 className="text-2xl sm:text-3xl font-bold text-[#4E5A54] text-center mb-1">
@@ -51,15 +59,16 @@ export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
         </h1>
         {/* Subtitle */}
         <p className="text-sm text-[#7E8A84] text-center mb-7 px-1">
-          Ta ett ögonblick och känn efter. Hur stark är känslan just nu? Drag reglaget nedan.
+        {currentContent.text}
         </p>
 
         {/* Slider */}
         <div className="w-full mb-7 flex flex-col items-center">
           <input
             type="range"
-            min={1}
+            min={0}
             max={10}
+            step={1}
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
             className={`w-full h-2 rounded-full outline-none bg-gradient-to-r ${sliderColors[0]} appearance-none custom-slider mb-3`}
@@ -80,7 +89,7 @@ export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
         </div>
         {/* Feeling text */}
         <div className="mb-7">
-          <span className="text-base font-medium text-[#7E8A84]">{getFeelingText(value)}</span>
+        <span className="text-base font-medium text-[#7E8A84]">{currentContent.text}</span>
         </div>
 
         {/* Textarea */}
