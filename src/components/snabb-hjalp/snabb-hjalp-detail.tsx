@@ -58,9 +58,7 @@ export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
           Hur stark är känslan?
         </h1>
         {/* Subtitle */}
-        <p className="text-sm text-[#7E8A84] text-center mb-7 px-1">
-        {currentContent.text}
-        </p>
+        
 
         {/* Slider */}
         <div className="w-full mb-7 flex flex-col items-center">
@@ -87,10 +85,8 @@ export function SnabbHjalpDetail({ onBack }: SnabbHjalpDetailProps) {
         <div className="mb-1 mt-1">
           <span className="text-[2.8rem] font-extrabold text-[#5D9C7A]">{value}</span>
         </div>
-        {/* Feeling text */}
-        <div className="mb-7">
-        <span className="text-base font-medium text-[#7E8A84]">{currentContent.text}</span>
-        </div>
+        
+        
 
         {/* Textarea */}
         <div className="w-full mb-10 mt-1">

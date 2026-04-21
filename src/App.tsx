@@ -35,7 +35,7 @@ function App() {
   
           {/* Subtitle */}
           <p className="text-sm text-[#7E8A84] text-center mb-7 px-1">
-  {([
+  {[
     "Bra att du checkar in, även när det känns lugnt.",
     "Bra att du checkar in, även när det känns lugnt.",
     "Bra att du checkar in, även när det känns lugnt.",
@@ -46,8 +46,8 @@ function App() {
     "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
     "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
     "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
-    "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande."
-  ])[sliderValue]}
+    "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
+  ][sliderValue]}
 </p>
   
           {/* Slider */}
@@ -75,24 +75,7 @@ function App() {
             </span>
           </div>
   
-          {/* Feeling text */}
-          <div className="mb-7">
-            <span className="text-base font-medium text-[#7E8A84]">
-              {({
-                0: "Bra att du checkar in, även när det känns lugnt.",
-                1: "Bra att du checkar in, även när det känns lugnt.",
-                2: "Bra att du checkar in, även när det känns lugnt.",
-                3: "Bra att du checkar in, även när det känns lugnt.",
-                4: "Lyssna in — var i kroppen märker du det mest?",
-                5: "Lyssna in — var i kroppen märker du det mest?",
-                6: "Lyssna in — var i kroppen märker du det mest?",
-                7: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
-                8: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
-                9: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
-                10: "Det verkar som att kroppen är ganska aktiverad just nu. Vi börjar med något lugnande.",
-              } as Record<number, string>)[sliderValue]}
-            </span>
-          </div>
+          
   
           {/* Textarea */}
           <div className="w-full mb-10 mt-1">
