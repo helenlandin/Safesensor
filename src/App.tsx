@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { Heart, Moon } from "lucide-react"
-
+function getSliderColor(v: number) {
+  if (v <= 3) return "#4CAF50"
+  if (v <= 8) return "#E09B00"
+  return "#E03A3A"
+}
 type SnabbHjalpStep = "hidden" | "val" | "kropp" | "somn"
 
 function App() {
@@ -60,6 +64,7 @@ function App() {
               value={sliderValue}
               onChange={(e) => setSliderValue(Number(e.target.value))}
               className="w-full h-2 rounded-full outline-none"
+              style={{ background: `linear-gradient(to right, ${getSliderColor(sliderValue)} ${sliderValue * 10}%, #D1D5DB ${sliderValue * 10}%)` }}
             />
   
             <div className="w-full flex justify-between px-2 text-xs font-medium text-[#7E8A84] mt-2">
@@ -70,7 +75,7 @@ function App() {
   
           {/* Selected number */}
           <div className="mb-1 mt-1">
-            <span className="text-[2.8rem] font-extrabold text-[#5D9C7A]">
+          <span style={{ color: getSliderColor(sliderValue), fontSize: "2.8rem", fontWeight: "bold" }}>
               {sliderValue}
             </span>
           </div>
