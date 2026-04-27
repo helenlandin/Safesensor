@@ -1,16 +1,41 @@
 import { useState } from "react"
 import { Heart, Moon } from "lucide-react"
+
+import { KroppDetaljScreen } from "@/components/snabb-hjalp/kropp-detalj-screen"
+
 function getSliderColor(v: number) {
   if (v <= 3) return "#4CAF50"
   if (v <= 8) return "#E09B00"
   return "#E03A3A"
 }
-type SnabbHjalpStep = "hidden" | "val" | "kropp" | "somn"
+type SnabbHjalpStep =
+  | "hidden"
+  | "val"
+  | "kropp"
+  | "kropp-detalj"
+  | "somn"
 
 function App() {
   const [snabbHjalpStep, setSnabbHjalpStep] = useState<SnabbHjalpStep>("val")
   const [sliderValue, setSliderValue] = useState(4)
   const [note, setNote] = useState("")
+  const [, setSelectedBodyParts] = useState<string[]>([])
+  const [, setSelectedFeelings] = useState<string[]>([])
+
+  if (snabbHjalpStep === "kropp-detalj") {
+    return (
+      <KroppDetaljScreen
+        sliderValue={sliderValue}
+        note={note}
+        onBack={() => setSnabbHjalpStep("kropp")}
+        onContinue={({ bodyParts, feelings }) => {
+          setSelectedBodyParts(bodyParts)
+          setSelectedFeelings(feelings)
+          // TODO: nästa steg, t.ex. setSnabbHjalpStep("ovning")
+        }}
+      />
+    )
+  }
   if (snabbHjalpStep === "kropp") {
     return (
       <div className="min-h-svh bg-gradient-to-b from-[#F7FBF8] to-[#F5FAF7] flex flex-col items-center px-4 py-6">
@@ -96,6 +121,7 @@ function App() {
           <button
             className="rounded-full bg-[#7DBA98] px-10 py-4 text-white font-semibold"
             type="button"
+            onClick={() => setSnabbHjalpStep("kropp-detalj")}
           >
             Fortsätt
           </button>
