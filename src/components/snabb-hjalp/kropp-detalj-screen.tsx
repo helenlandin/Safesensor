@@ -1,6 +1,13 @@
 import { useState } from "react"
 
-import { Button } from "@/components/ui/button"
+import { BodyAreaCard } from "@/components/ui/body-area-card"
+import {
+  BODY_AREA_ART,
+  type BodyAreaId,
+} from "@/components/ui/body-area-illustrations"
+import { CalmBackground } from "@/components/ui/calm-background"
+import { FeelingPill } from "@/components/ui/feeling-pill"
+import { PrimaryCta } from "@/components/ui/primary-cta"
 
 export type KroppDetaljData = {
   sliderValue: number
@@ -16,32 +23,31 @@ export type KroppDetaljScreenProps = {
   onContinue: (data: KroppDetaljData) => void
 }
 
-const BODY_PARTS = [
-  { id: "mage", label: "Mage", img: "/illustrations/mage.png" },
-  { id: "brost", label: "Bröst", img: "/illustrations/brost.png" },
-  { id: "hals", label: "Hals", img: "/illustrations/hals.png" },
-  { id: "kakar", label: "Käkar", img: "/illustrations/kakar.png" },
-  { id: "huvud", label: "Huvud", img: "/illustrations/huvud.png" },
-  { id: "axlar", label: "Axlar", img: "/illustrations/axlar.png" },
-  { id: "armar", label: "Armar", img: "/illustrations/armar.png" },
-  { id: "ben", label: "Ben", img: "/illustrations/ben.png" },
-  { id: "hela", label: "Hela kroppen", img: "/illustrations/hela.png" },
-] as const
+const BODY_PARTS: { id: BodyAreaId; label: string }[] = [
+  { id: "mage", label: "Mage" },
+  { id: "brost", label: "Bröst" },
+  { id: "hals", label: "Hals" },
+  { id: "kakar", label: "Käkar" },
+  { id: "huvud", label: "Huvud" },
+  { id: "axlar", label: "Axlar" },
+  { id: "armar", label: "Armar" },
+  { id: "ben", label: "Ben" },
+  { id: "hela", label: "Hela kroppen" },
+]
 
-const FEELINGS = [
-  { id: "oro", label: "Oro/ångest", emoji: "☁️" },
-  { id: "ilska", label: "Ilska", emoji: "🔥" },
-  { id: "ledsen", label: "Ledsen", emoji: "🌧️" },
-  { id: "radsla", label: "Rädsla", emoji: "👻" },
-  { id: "skam", label: "Skam", emoji: "🥑" },
-  { id: "overvaldigad", label: "Överväldigad", emoji: "🎯" },
-  { id: "glad", label: "Glad", emoji: "☀️" },
-  { id: "stressad", label: "Stressad", emoji: "🌀" },
-  { id: "rastlos", label: "Rastlös", emoji: "〰️" },
-] as const
+const FEELINGS: { id: string; label: string; icon: string }[] = [
+  { id: "oro", label: "Oro/ångest", icon: "🌧️" },
+  { id: "ilska", label: "Ilska", icon: "🔥" },
+  { id: "ledsen", label: "Ledsen", icon: "🌧️" },
+  { id: "radsla", label: "Rädsla", icon: "👻" },
+  { id: "skam", label: "Skam", icon: "🍃" },
+  { id: "overvaldigad", label: "Överväldigad", icon: "🎯" },
+  { id: "glad", label: "Glad", icon: "☀️" },
+  { id: "stressad", label: "Stressad", icon: "🌀" },
+  { id: "rastlos", label: "Rastlös", icon: "〰️" },
+]
 
 const MAX_SELECT = 3
-
 const SERIF_FONT = '"Playfair Display", Georgia, serif'
 
 export function KroppDetaljScreen({
@@ -68,13 +74,16 @@ export function KroppDetaljScreen({
   }
 
   return (
-    <div className="min-h-svh w-full overflow-y-auto bg-[#E8F1E5]">
-      <div className="mx-auto w-full max-w-[390px] px-4 pt-3 pb-10">
+    <CalmBackground>
+      <div
+        className="mx-auto w-full max-w-[420px] pt-3 pb-12"
+        style={{ paddingInline: "clamp(12px, 4vw, 20px)" }}
+      >
         <div className="mb-1">
           <button
             type="button"
             onClick={onBack}
-            className="min-h-[44px] rounded-md px-2 text-sm font-medium text-[#5A6B5F] hover:bg-white/40"
+            className="min-h-[44px] rounded-full px-3 text-sm font-medium text-[#5A6B5F] transition hover:bg-white/50"
           >
             ← Tillbaka
           </button>
@@ -82,85 +91,65 @@ export function KroppDetaljScreen({
 
         {/* Sektion 1 – Kroppsdelar */}
         <h1
-          className="mb-5 text-center text-[22px] leading-tight font-bold text-[#2F4A3A]"
-          style={{ fontFamily: SERIF_FONT }}
+          className="mt-2 mb-1 text-center font-bold text-[#2F4A3A] leading-tight"
+          style={{
+            fontFamily: SERIF_FONT,
+            fontSize: "clamp(20px, 5.5vw, 26px)",
+          }}
         >
           Var i kroppen känner du det?
         </h1>
+        <p className="mb-6 text-center text-[#5A6B5F]" style={{ fontSize: "clamp(12px, 3.4vw, 13px)" }}>
+          Välj upp till 3 områden
+        </p>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div
+          className="grid grid-cols-3"
+          style={{ gap: "clamp(8px, 3vw, 16px)" }}
+        >
           {BODY_PARTS.map((part) => {
-            const selected = bodyParts.includes(part.id)
+            const Art = BODY_AREA_ART[part.id]
             return (
-              <button
+              <BodyAreaCard
                 key={part.id}
-                type="button"
-                aria-pressed={selected}
-                onClick={() => toggle(part.id, bodyParts, setBodyParts)}
-                className={[
-                  "flex min-h-[112px] flex-col items-center justify-end rounded-2xl bg-white p-2 pb-2.5",
-                  "shadow-[0_2px_6px_rgba(60,90,70,0.08)] transition-all",
-                  selected
-                    ? "ring-2 ring-[#7DBA98] ring-offset-1 ring-offset-[#E8F1E5]"
-                    : "ring-1 ring-[#D9E5DE]",
-                ].join(" ")}
-              >
-                <div className="flex w-full flex-1 items-center justify-center">
-                  <img
-                    src={part.img}
-                    alt=""
-                    className="max-h-[68px] w-auto object-contain"
-                    onError={(e) => {
-                      const img = e.currentTarget as HTMLImageElement
-                      img.style.visibility = "hidden"
-                    }}
-                  />
-                </div>
-                <span className="mt-1 text-[12px] font-semibold text-[#3A5C46]">
-                  {part.label}
-                </span>
-              </button>
+                label={part.label}
+                illustration={<Art />}
+                selected={bodyParts.includes(part.id)}
+                onToggle={() => toggle(part.id, bodyParts, setBodyParts)}
+              />
             )
           })}
         </div>
 
         {/* Sektion 2 – Känslor */}
         <h2
-          className="mt-8 mb-4 text-center text-[20px] leading-tight font-bold text-[#2F4A3A]"
-          style={{ fontFamily: SERIF_FONT }}
+          className="mt-10 mb-5 text-center font-bold text-[#2F4A3A] leading-tight"
+          style={{
+            fontFamily: SERIF_FONT,
+            fontSize: "clamp(18px, 4.5vw, 22px)",
+          }}
         >
           Vilka känslor finns med?
         </h2>
 
-        <div className="grid grid-cols-3 gap-2.5">
-          {FEELINGS.map((f) => {
-            const selected = feelings.includes(f.id)
-            return (
-              <button
-                key={f.id}
-                type="button"
-                aria-pressed={selected}
-                onClick={() => toggle(f.id, feelings, setFeelings)}
-                className={[
-                  "flex min-h-[44px] items-center justify-center gap-1 rounded-full bg-white px-2 py-2",
-                  "text-[12px] font-medium text-[#3A5C46] transition-all",
-                  "shadow-[0_1px_4px_rgba(60,90,70,0.08)]",
-                  selected
-                    ? "ring-2 ring-[#7DBA98]"
-                    : "ring-1 ring-[#D9E5DE]",
-                ].join(" ")}
-              >
-                <span aria-hidden>{f.emoji}</span>
-                <span className="truncate">{f.label}</span>
-              </button>
-            )
-          })}
+        <div
+          className="grid grid-cols-3"
+          style={{ gap: "clamp(8px, 2.5vw, 12px)" }}
+        >
+          {FEELINGS.map((f) => (
+            <FeelingPill
+              key={f.id}
+              label={f.label}
+              icon={f.icon}
+              selected={feelings.includes(f.id)}
+              onToggle={() => toggle(f.id, feelings, setFeelings)}
+            />
+          ))}
         </div>
 
-        <div className="mt-8">
-          <Button
+        <div className="mt-10">
+          <PrimaryCta
             type="button"
-            className="h-[52px] w-full rounded-full bg-[#7DBA98] text-base font-semibold text-white shadow-[0_4px_14px_rgba(125,186,152,0.35)] hover:bg-[#6EAB89]"
             onClick={() =>
               onContinue({
                 sliderValue,
@@ -171,9 +160,9 @@ export function KroppDetaljScreen({
             }
           >
             Fortsätt
-          </Button>
+          </PrimaryCta>
         </div>
       </div>
-    </div>
+    </CalmBackground>
   )
 }

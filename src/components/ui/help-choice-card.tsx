@@ -27,7 +27,7 @@ export function HelpChoiceCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "mx-auto flex w-[min(100%,380px)] cursor-pointer items-center rounded-3xl border border-[#C5D4CC]/55 bg-[#FCFCF8] text-left sm:w-[min(100%,400px)] md:w-[min(100%,420px)]",
+        "mx-auto flex w-[min(100%,380px)] cursor-pointer items-center rounded-3xl border border-[#C5D4CC]/55 bg-white/85 backdrop-blur-sm text-left sm:w-[min(100%,400px)] md:w-[min(100%,420px)]",
         "min-h-[7rem] py-6 pl-6 pr-7 sm:min-h-[7.5rem] sm:py-7 sm:pl-7 sm:pr-8 md:py-8",
         "shadow-[0_6px_22px_rgba(78,90,84,0.1),0_1px_0_rgba(255,255,255,0.7)_inset]",
         "transition-[transform,box-shadow,border-color] duration-200 ease-in-out",
