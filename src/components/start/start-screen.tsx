@@ -1,15 +1,4 @@
-import {
-  BookIcon,
-  CompassIcon,
-  HandHeartIcon,
-  MoonStarsIcon,
-  PlantIcon,
-} from "@/components/ui/botanical-icons"
-import { BotanicalPillButton } from "@/components/ui/botanical-pill-button"
-import { LeafCornerBackground } from "@/components/ui/leaf-corner-background"
-import { LotusIcon } from "@/components/ui/lotus-icon"
-
-const SERIF_FONT = '"Playfair Display", Georgia, serif'
+import type { CSSProperties } from "react"
 
 export type StartScreenProps = {
   onSnabbHjalp: () => void
@@ -20,6 +9,10 @@ export type StartScreenProps = {
   onOvningar: () => void
 }
 
+/**
+ * Startskärmen visar endast `/illustrations/startsida-design.png` som UI.
+ * Osynliga klickytor ligger ovanpå bildens knappar; bilden ändras inte i kod.
+ */
 export function StartScreen({
   onSnabbHjalp,
   onCheckIn,
@@ -29,128 +22,66 @@ export function StartScreen({
   onOvningar,
 }: StartScreenProps) {
   return (
-    <LeafCornerBackground>
-      <div
-        className="mx-auto w-full max-w-[420px] pt-10 pb-12"
-        style={{ paddingInline: "clamp(16px, 5vw, 24px)" }}
-      >
-        <header className="text-center">
-          <h1
-            className="font-bold tracking-tight text-[#2F4A3A]"
-            style={{
-              fontFamily: SERIF_FONT,
-              fontSize: "clamp(40px, 12vw, 56px)",
-              lineHeight: 1,
-            }}
-          >
-            SafeSensor
-          </h1>
+    <div className="relative flex min-h-svh w-full justify-center bg-[#F4EFE2]">
+      <div className="relative w-full max-w-[420px]">
+        <img
+          src="/illustrations/startsida-design.png"
+          alt="SafeSensor — startsida"
+          draggable={false}
+          className="block h-auto w-full select-none"
+        />
 
-          <p
-            className="mx-auto mt-4 max-w-[320px] text-pretty text-[#3A5C46]"
-            style={{
-              fontSize: "clamp(13px, 3.6vw, 15px)",
-              lineHeight: 1.45,
-            }}
-          >
-            Hjälper dig att förstå kroppens signaler och lugna nervsystemet,
-            steg för steg.
-          </p>
-
-          <p
-            className="mx-auto mt-5 max-w-[300px] italic text-[#5A6B5F]"
-            style={{
-              fontFamily: SERIF_FONT,
-              fontSize: "clamp(13px, 3.6vw, 15px)",
-              lineHeight: 1.4,
-            }}
-          >
-            “Känslan är stark – men den är inte sanningen om dig.”
-          </p>
-        </header>
-
-        <div className="mt-9 space-y-4">
-          <BotanicalPillButton
-            label="Snabb hjälp nu"
-            icon={<HandHeartIcon className="h-6 w-6 text-[#3A5C46]" />}
-            onClick={onSnabbHjalp}
-            bgClassName="bg-gradient-to-r from-[#F4DCC9] via-[#F2D4C2] to-[#EAC9B5]"
-            ringClassName="ring-1 ring-white/40"
-            decorationColor="rgba(195, 130, 95, 0.45)"
-          />
-
-          <BotanicalPillButton
-            label="Check-in"
-            icon={<PlantIcon className="h-6 w-6 text-[#3A5C46]" />}
-            onClick={onCheckIn}
-            bgClassName="bg-gradient-to-r from-[#EAF2E5] via-[#E2EEDE] to-[#D7E7D3]"
-            decorationColor="rgba(58, 92, 70, 0.40)"
-          />
-
-          <BotanicalPillButton
-            label="Lär känna dina signaler"
-            icon={<CompassIcon className="h-6 w-6 text-white" />}
-            onClick={onLarKanna}
-            bgClassName="bg-gradient-to-r from-[#5F8E78] via-[#4F7F6A] to-[#3F6F5C]"
-            textClassName="text-white"
-            ringClassName="ring-1 ring-white/20"
-            shadowClassName="shadow-[0_10px_24px_rgba(60,90,70,0.25)]"
-            decorationColor="rgba(255, 255, 255, 0.45)"
-          />
-
-          <BotanicalPillButton
-            label="Sömn & morgonstart"
-            icon={<MoonStarsIcon className="h-6 w-6 text-[#4A4A8E]" />}
-            onClick={onSomn}
-            bgClassName="bg-gradient-to-r from-[#E0DFF1] via-[#D7D6EC] to-[#CCCBE5]"
-            textClassName="text-[#2F2F66]"
-            decorationColor="rgba(80, 80, 140, 0.38)"
-          />
-        </div>
-
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <SmallPillButton
-            label="Min loggbok"
-            icon={<BookIcon className="h-5 w-5 text-[#3A5C46]" />}
-            onClick={onLoggbok}
-          />
-          <SmallPillButton
-            label="Övningar"
-            icon={<LotusIcon size={20} className="text-[#3A5C46]" />}
-            onClick={onOvningar}
-          />
-        </div>
+        <HitArea
+          label="Snabb hjälp nu"
+          onClick={onSnabbHjalp}
+          style={{ top: "38%", left: "7%", width: "86%", height: "8%" }}
+        />
+        <HitArea
+          label="Check-in"
+          onClick={onCheckIn}
+          style={{ top: "50%", left: "7%", width: "86%", height: "8%" }}
+        />
+        <HitArea
+          label="Lär känna dina signaler"
+          onClick={onLarKanna}
+          style={{ top: "62%", left: "7%", width: "86%", height: "8%" }}
+        />
+        <HitArea
+          label="Sömn & morgonstart"
+          onClick={onSomn}
+          style={{ top: "74%", left: "7%", width: "86%", height: "8%" }}
+        />
+        <HitArea
+          label="Min loggbok"
+          onClick={onLoggbok}
+          style={{ top: "86.5%", left: "7%", width: "41%", height: "7%" }}
+        />
+        <HitArea
+          label="Övningar"
+          onClick={onOvningar}
+          style={{ top: "86.5%", left: "52%", width: "41%", height: "7%" }}
+        />
       </div>
-    </LeafCornerBackground>
+    </div>
   )
 }
 
-function SmallPillButton({
+function HitArea({
   label,
-  icon,
   onClick,
+  style,
 }: {
   label: string
-  icon: React.ReactNode
   onClick?: () => void
+  style: CSSProperties
 }) {
   return (
     <button
       type="button"
+      aria-label={label}
       onClick={onClick}
-      className="flex min-h-[56px] w-full items-center justify-center gap-2 border border-[#3A5C46]/15 bg-gradient-to-r from-[#F4F1E8] via-[#F1F0E7] to-[#EBF0E5] text-[#2F4A3A] shadow-[0_2px_8px_rgba(60,90,70,0.06)] transition hover:border-[#3A5C46]/25 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7DBA98]/60"
-      style={{ borderRadius: 40 }}
-    >
-      <span className="grid h-7 w-7 place-items-center">{icon}</span>
-      <span
-        className="font-semibold tracking-tight"
-        style={{
-          fontFamily: SERIF_FONT,
-          fontSize: "clamp(13px, 3.6vw, 15px)",
-        }}
-      >
-        {label}
-      </span>
-    </button>
+      className="absolute cursor-pointer rounded-[40px] bg-transparent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7DBA98]/60 active:scale-[0.98]"
+      style={style}
+    />
   )
 }
